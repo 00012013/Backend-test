@@ -18,6 +18,8 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 @Service
 class ProductServiceImpl(
@@ -50,6 +52,18 @@ class ProductServiceImpl(
 
     override fun getAllProducts(): List<ProductModel> {
         return productRepository.findAll().map { product -> productModelMapper.mapToProductModel(product) }.toList();
+    }
+
+    override fun saveProduct(product: ProductModel) {
+        productRepository.save(
+            ProductEntity(
+                id = Random.nextLong().absoluteValue,
+                handle = product.handle,
+                productType = product.productType,
+                vendor = product.vendor,
+                tags = product.tags
+            )
+        )
     }
 
     @Transactional
