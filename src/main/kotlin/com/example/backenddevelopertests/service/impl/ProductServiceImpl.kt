@@ -58,10 +58,10 @@ class ProductServiceImpl(
         productRepository.save(
             ProductEntity(
                 id = Random.nextLong().absoluteValue,
+                title = product.title,
                 handle = product.handle,
                 productType = product.productType,
                 vendor = product.vendor,
-                tags = product.tags
             )
         )
     }
