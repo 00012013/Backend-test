@@ -1,12 +1,11 @@
-package com.example.backenddevelopertests.entity;
+package com.example.backenddevelopertests.entity
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Date;
+import jakarta.persistence.*
+import lombok.AllArgsConstructor
+import lombok.Getter
+import lombok.NoArgsConstructor
+import lombok.Setter
+import java.util.*
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,44 +13,43 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "variant")
-public class VariantEntity {
+class VariantEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    var id: Long? = null,
 
-    private String title;
+    var title: String? = null,
 
-    private String option1;
+    var option1: String? = null,
 
-    private String option2;
+    var option2: String? = null,
 
-    private String option3;
+    var option3: String? = null,
 
-    private String sku;
+    var sku: String? = null,
 
-    private Boolean requiresShipping;
+    var requiresShipping: Boolean? = null,
 
-    private Boolean taxable;
+    var taxable: Boolean? = null,
 
-    private Boolean available;
+    var available: Boolean? = null,
 
-    private String price;
+    var price: Double? = null,
 
-    private Integer grams;
+    var grams: Int? = null,
 
-    private String compareAtPrice;
+    var compareAtPrice: Double? = null,
 
-    private Integer position;
+    var position: Int? = null,
 
-    private Date createdAt;
+    var createdAt: Date? = null,
 
-    private Date updatedAt;
+    var updatedAt: Date? = null,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    var product: ProductEntity? = null,
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "featured_image_id")
-    private ImageEntity featuredImage;
-}
+    var featuredImage: ImageEntity? = null
+)

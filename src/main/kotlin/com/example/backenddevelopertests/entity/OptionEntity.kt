@@ -12,19 +12,20 @@ import lombok.Setter
 @Setter
 @Entity
 @Table(name = "option")
-class OptionEntity {
+@SequenceGenerator(name = "option_id_seq", sequenceName = "option_id_seq", allocationSize = 1)
+class OptionEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long? = null
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "option_id_seq")
+    var id: Long? = null,
 
-    private val name: String? = null
+    var name: String? = null,
 
-    private val position: Int? = null
+    var position: Int? = null,
 
     @ElementCollection
-    private val values: List<String>? = null
+    var values: List<String>? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    private val product: ProductEntity? = null
-}
+    var product: ProductEntity? = null,
+)
