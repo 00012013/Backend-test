@@ -11,18 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
 class ProductController(@Autowired private val productService: ProductService) {
-
-    @GetMapping("/test")
+    @GetMapping("/")
     fun getProducts(model: Model): String {
-        model.addAttribute("products", productService.getAllProducts())
-        return "products"
+        val products = productService.getAllProducts()
+        model.addAttribute("products", products)
+        return "productList :: table-and-form"
     }
 
-    @PostMapping("/products")
-    fun saveProduct(@ModelAttribute product: ProductModel, model: Model): String {
+    @PostMapping("/save")
+    fun saveProduct(@ModelAttribute product: ProductModel): String {
         productService.saveProduct(product)
-        model.addAttribute("products", productService.getAllProducts())
-        return "productTable :: tableBody"
+        return "productList :: table-and-form"
+    }
+
+    @GetMapping("/test")
+    fun reloadProducts(model: Model): String {
+        val products = productService.getAllProducts()
+        model.addAttribute("products", products)
+        return "productList"
     }
 
 }
