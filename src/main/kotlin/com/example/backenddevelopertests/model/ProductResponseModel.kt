@@ -2,16 +2,11 @@ package com.example.backenddevelopertests.model
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
-import lombok.Data
-import lombok.Getter
-import lombok.Setter
 
-@Data
 class ProductResponse {
     val products: List<ProductModel>? = null
 }
 
-@Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class ProductModel(
     val id: Long? = null,
@@ -42,7 +37,6 @@ class ProductModel(
 )
 
 
-@Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class VariantModel(
     val id: Long? = null,
@@ -101,8 +95,6 @@ open class ImageModel(
     val height: Int? = null
 )
 
-@Getter
-@Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 class FeaturedImageModel : ImageModel() {
     val alt: String? = null

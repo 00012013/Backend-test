@@ -18,7 +18,7 @@ class ProductServiceImpl(
 ) : ProductService {
     private final var url = "https://famme.no/products.json";
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     fun fetchAndSaveProducts() {
         if (repo.getProductCount() > 0) {
             return
