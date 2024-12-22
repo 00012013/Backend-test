@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product List</title>
+
+    <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.js"
+            integrity="sha384-oeUn82QNXPuVkGCkcrInrS1twIxKhkZiFfr2TdiuObZ3n3yIeMiqcRzkIcguaof1"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/themes/light.css"/>
+    <script type="module"
+            src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace-autoloader.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        table {
+            --sl-table-header-background: #f0f0f0;
+            --sl-table-row-hover-background: #f7f7f7;
+            --sl-table-cell-padding: 16px;
+        }
+
+        sl-input {
+            text-align: start;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body style="align-items: center">
+<header>
+    <h2>Product List</h2>
+</header>
+<br>
+<sl-button
+        hx-get="/load"
+        hx-target="#rows"
+        hx-swap="innerHTML">
+    Load Products
+</sl-button>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col" style="background-color: #f8f8f8;">Id</th>
+        <th scope="col" style="background-color: #f8f8f8;">Title</th>
+        <th scope="col" style="background-color: #f8f8f8;">Handle</th>
+        <th scope="col" style="background-color: #f8f8f8;">Published Date</th>
+        <th scope="col" style="background-color: #f8f8f8;">Vendor</th>
+        <th scope="col" style="background-color: #f8f8f8;">Product Type</th>
+    </tr>
+    </thead>
+    <tbody id="rows">
+    <tr th:fragment="product-row" th:each="product : ${products}">
+        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+            th:text="${product.id}">
+        </td>
+        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+            th:text="${product.title}">
+        </td>
+        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+            th:text="${product.handle}">
+        </td>
+        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+            th:text="${product.publishedAt}">
+        </td>
+        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+            th:text="${product.vendor}">
+        </td>
+        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+            th:text="${product.productType}">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<form hx-post="/test" hx-target="#rows" hx-swap="innerHTML" method="post" style="width: 50%">
+    <sl-input label="Title" name="title" required></sl-input>
+
+    <sl-input label="Handle" name="handle" required></sl-input>
+
+    <sl-input label="Vendor" name="vendor" required></sl-input>
+
+    <sl-input label="Product Type" name="productType" required></sl-input>
+
+    <sl-input label="Published Date" name="publishedAt" type="date" required></sl-input>
+
+    <sl-button type="primary" submit>Submit</sl-button>
+</form>
+</body>
+</html>
